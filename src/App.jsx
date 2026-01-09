@@ -1,41 +1,43 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AdminLogin from "./pages/AdminLogin";
+import AdminLayout from "./components/AdminLayout";
+import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import Dashboard from "./components/Dashboard";
-
 import Projects from "./pages/Projects";
 import Gallery from "./pages/Gallery";
-import Contact from "./pages/Contact";
-import Profile from "./pages/Profile";
+import Banners from "./pages/Banners";
 
 function App() {
   return (
     <Router>
-      <div className="flex min-h-screen bg-gray-100">
+      <Routes>
+        {/* 🔁 Default redirect */}
+        <Route path="/" element={<Navigate to="/admin/login" />} />
         
-        {/* Sidebar */}
-        <Sidebar />
-
-        {/* Main Area */}
-        <div className="flex-1 flex flex-col">
+        {/* 🔐 Admin Login */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        
+        {/* 🔒 Protected Admin Panel */}
+        <Route
+          path="/admin"
+          element={
+            <AdminProtectedRoute>
+              <AdminLayout />
+            </AdminProtectedRoute>
+          }
+        >
+          {/* Default admin page */}
+          <Route index element={<Navigate to="dashboard" />} />
           
-          {/* Top Navbar */}
-          <Navbar />
-
-          {/* Page Content */}
-          <div className="flex-1 p-6">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-          </div>
-
-        </div>
-      </div>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="banners" element={<Banners />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="gallery" element={<Gallery />} />
+        </Route>
+        
+        {/* ❌ Fallback */}
+        <Route path="*" element={<Navigate to="/admin/login" />} />
+      </Routes>
     </Router>
   );
 }
