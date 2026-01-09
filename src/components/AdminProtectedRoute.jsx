@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 
-const ADMIN_UID = "O8Gx9N7hhlOhJmKdwk6wFxPSCcv1";
+const ADMIN_UID = "mZozAM2GGpdIajf9XKDnCl5Jlos2";
 
 const AdminProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);

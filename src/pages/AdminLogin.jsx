@@ -11,7 +11,7 @@ import { auth, db } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const ADMIN_UID = "O8Gx9N7hhlOhJmKdwk6wFxPSCcv1";
+const ADMIN_UID = "mZozAM2GGpdIajf9XKDnCl5Jlos2";
 
 function AdminLogin() {
   const navigate = useNavigate();
